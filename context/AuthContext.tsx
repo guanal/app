@@ -1,8 +1,8 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import { User } from '@/types/user';
-import { loginUser, registerUser, getCurrentUser } from '@/services/authService';
+import { User } from '../types/user.ts';
+import { loginUser, registerUser, getCurrentUser } from '../services/authService.ts';
 import { Platform } from 'react-native';
 
 interface AuthContextType {
@@ -88,7 +88,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const response = await loginUser(email, password);
-      await saveToken(response.token);
+      if (response.token) {
+        await saveToken(response.token);
+      } else {
+        throw new Error('No token received from server.');
+      }
       setUser(response.user);
       router.replace('/(tabs)');
     } catch (error) {
@@ -103,7 +107,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const response = await registerUser(name, email, password);
-      await saveToken(response.token);
+      if (response.token) {
+        await saveToken(response.token);
+      } else {
+        throw new Error('No token received from server.');
+      }
       setUser(response.user);
       router.replace('/(tabs)');
     } catch (error) {

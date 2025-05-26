@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, ActivityIndicator } from 'react-native';
-import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/context/ThemeContext';
+import { useAuth } from '../../context/AuthContext.tsx';
+import { useTheme } from '../../context/ThemeContext.tsx';
 import { LogOut, User, Mail, FileText, MessageSquare } from 'lucide-react-native';
 import { useState, useEffect } from 'react';
-import { getUserStats } from '@/services/userService';
-import StatCard from '@/components/StatCard';
+import { getUserStats } from '../../services/userService.ts';
+import StatCard from '../../components/StatCard.tsx';
 
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();

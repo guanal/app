@@ -1,13 +1,16 @@
-import { User } from '@/types/user';
-import { getDocuments } from './documentService';
-import { mockMessages } from './chatService'; // Replace this with real messages fetch if needed
+import { User } from '../types/user.ts';
+import { getDocuments } from './documentService.ts';
+import { Message } from './chatService.ts';
 
+/**
+ * Get user statistics including document and message count.
+ */
 export async function getUserStats(userId: string): Promise<{ documents: number; messages: number }> {
   try {
     const userDocuments = await getDocuments(userId);
 
-    // NOTE: mockMessages is still used here. Replace with real message fetching if applicable.
-    const userMessages = mockMessages.filter(msg => msg.userId === userId && msg.sender === 'user');
+    // TODO: Replace with actual messages source when available
+    const userMessages: Message[] = []; // No mockMessages available
 
     return {
       documents: userDocuments.length,
@@ -19,11 +22,18 @@ export async function getUserStats(userId: string): Promise<{ documents: number;
   }
 }
 
+/**
+ * Simulate updating user profile (mock function).
+ * Replace with real DB logic when ready.
+ */
 export async function updateUserProfile(userId: string, data: Partial<User>): Promise<User> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // In real app: update user in database
-      resolve({ id: userId, name: data.name || '', email: data.email || '' });
-    }, 1000);
-  });
+  // Simulate async DB update delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  return {
+    id: userId,
+    name: data.name || '',
+    email: data.email || '',
+    avatarUrl: data.avatarUrl ?? null,
+  };
 }

@@ -1,5 +1,5 @@
-import { supabase } from './supabase';
-import { User } from '@/types/user';
+import { supabase } from './supabase.ts';
+import { User } from '../types/user.ts';
 
 export async function loginUser(
   email: string,

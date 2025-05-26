@@ -1,14 +1,15 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { router } from 'expo-router';
-import { useTheme } from '@/context/ThemeContext';
-import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '../../context/ThemeContext.tsx';
+import { useAuth } from '../../context/AuthContext.tsx';
 import { FileText, FilePlus } from 'lucide-react-native';
 import * as DocumentPicker from 'expo-document-picker';
-import { Document } from '@/types/document';
-import { getDocuments, deleteDocument, uploadDocument } from '@/services/documentService';
-import DocumentCard from '@/components/DocumentCard';
-import EmptyState from '@/components/EmptyState';
+import { Document } from '../../types/document.ts';
+import { getDocuments, deleteDocument, uploadDocument } from '../../services/documentService.ts';
+import DocumentCard from '../../components/DocumentCard.tsx';
+import EmptyState from '../../components/EmptyState.tsx';
 
 export default function DocumentsScreen() {
   const { colors } = useTheme();
@@ -56,9 +57,23 @@ export default function DocumentsScreen() {
         return;
       }
 
+      if (!user) {
+        setUploadingDoc(false);
+        Alert.alert('Upload Failed', 'User not authenticated.');
+        return;
+      }
+
       const file = result.assets[0];
 
-      const uploadedDoc = await uploadDocument(file, user.id); // ✅ Use real upload function
+      // Ensure the file object has a 'type' property
+      const fileWithType = {
+        name: file.name,
+        uri: file.uri,
+        size: file.size ?? 0,
+        type: file.mimeType || 'application/octet-stream',
+      };
+
+      const uploadedDoc = await uploadDocument(fileWithType, user.id); // ✅ Use real upload function
 
       setDocuments([uploadedDoc, ...documents]); // ✅ Add new doc to list
       Alert.alert('Success', 'Document uploaded successfully');

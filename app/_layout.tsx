@@ -1,7 +1,8 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useFrameworkReady } from '@/hooks/useFrameworkReady';
+import { useFrameworkReady } from '../hooks/useFrameworkReady.ts';
 import { useFonts } from 'expo-font';
 import { 
   Poppins_400Regular,
@@ -10,8 +11,8 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 import { SplashScreen } from 'expo-router';
-import { AuthProvider } from '@/context/AuthContext';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { AuthProvider } from '../context/AuthContext.tsx';
+import { ThemeProvider } from '../context/ThemeContext.tsx';
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();

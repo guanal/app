@@ -5,4 +5,5 @@ export interface Document {
   size: number;
   uploadDate: string;
   userId: string;
+  content: string;
 }

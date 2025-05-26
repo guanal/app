@@ -1,14 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { useTheme } from '@/context/ThemeContext';
-import { useAuth } from '@/context/AuthContext';
-import { Send, FileText, ChevronLeft } from 'lucide-react-native';
-import { Message } from '@/types/chat';
-import { getChatHistory, sendMessage } from '@/services/chatService';
-import MessageItem from '@/components/MessageItem';
-import EmptyState from '@/components/EmptyState';
+import { useTheme } from '../../context/ThemeContext.tsx';
+import { useAuth } from '../../context/AuthContext.tsx';
+import { Send, FileText } from 'lucide-react-native';
+import { Message } from '../../types/chat.ts';
+import { getChatHistory, sendMessage } from '../../services/chatService.ts';
+import MessageItem from '../../components/MessageItem.tsx';
+import EmptyState from '../../components/EmptyState.tsx';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import React from 'react';
+
+interface ThemeColors {
+  background: string;
+  card: string;
+  border: string;
+  text: string;
+  textSecondary: string;
+  primary: string;
+}
 
 export default function ChatScreen() {
   const { documentId, documentTitle } = useLocalSearchParams<{ documentId?: string, documentTitle?: string }>();
@@ -16,7 +26,6 @@ export default function ChatScreen() {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const flatListRef = useRef<FlatList>(null);
@@ -30,13 +39,11 @@ export default function ChatScreen() {
     }
     
     try {
-      setLoading(true);
       const history = await getChatHistory(documentId, user.id);
       setMessages(history);
     } catch (error) {
       console.error('Error loading chat history:', error);
     } finally {
-      setLoading(false);
       setInitialLoading(false);
     }
   };
@@ -188,7 +195,7 @@ export default function ChatScreen() {
   );
 }
 
-const getStyles = (colors: any) => StyleSheet.create({
+const getStyles = (colors: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,

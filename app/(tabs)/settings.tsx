@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Switch, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { useTheme } from '@/context/ThemeContext';
-import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '../../context/ThemeContext.tsx';
+import { useAuth } from '../../context/AuthContext.tsx';
 import { useState } from 'react';
 import { Moon, Sun, Bell, Lock, Trash2, Info, ChevronRight } from 'lucide-react-native';
 

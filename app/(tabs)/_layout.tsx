@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext.tsx';
 import { FileText, MessageSquare, User, Settings } from 'lucide-react-native';
+import React from 'react';
 
 export default function TabLayout() {
   const { colors } = useTheme();

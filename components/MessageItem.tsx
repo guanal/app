@@ -1,7 +1,8 @@
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useTheme } from '@/context/ThemeContext';
-import { Message } from '@/types/chat';
-import { formatTime } from '@/utils/formatters';
+import { useTheme } from '../context/ThemeContext.tsx';
+import { Message } from '../types/chat.ts';
+import { formatTime } from '../utils/formatters.ts';
 
 interface MessageItemProps {
   message: Message;

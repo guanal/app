@@ -1,8 +1,9 @@
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme } from '../context/ThemeContext.tsx';
 import { FileText, FilePen as FilePdf, FileType, FileImage, FileCode, Trash2 } from 'lucide-react-native';
-import { Document } from '@/types/document';
-import { formatFileSize, formatDate } from '@/utils/formatters';
+import { Document } from '../types/document.ts';
+import { formatFileSize, formatDate } from '../utils/formatters.ts';
 
 interface DocumentCardProps {
   document: Document;
